@@ -1,6 +1,6 @@
 name: Test Fabric
 
-on: push
+#on: push
 
 jobs:
   build:
