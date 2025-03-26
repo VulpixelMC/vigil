@@ -15,19 +15,6 @@ repositories {
 	}
 }
 
-dependencies {
-	minecraft("com.mojang:minecraft:${Versions.MINECRAFT}")
-	mappings(loom.layered {
-		officialMojangMappings()
-		parchment("org.parchmentmc.data:parchment-${Versions.PARCHMENT_MINECRAFT}:${Versions.PARCHMENT}")
-	})
-
-	modImplementation("net.fabricmc:fabric-loader:${Versions.FABRIC_LOADER}")
-	modImplementation("net.fabricmc.fabric-api:fabric-api:${Versions.FABRIC_API}")
-	modLocalRuntime("net.fabricmc.fabric-api:fabric-api:${Versions.FABRIC_API}")
-	modLocalRuntime("com.terraformersmc:modmenu:${Versions.MOD_MENU}")
-}
-
 loom {
 	val aw = file("src/main/resources/${Properties.MOD_ID}.accesswidener");
 	if (aw.exists())
@@ -35,12 +22,10 @@ loom {
 	mixin {
 		defaultRefmapName.set("${Properties.MOD_ID}.refmap.json")
 	}
-	splitEnvironmentSourceSets()
 	mods {
 		register(Properties.MOD_ID) {
 			sourceSet(sourceSets["main"])
 			sourceSet(sourceSets["test"])
-			sourceSet(sourceSets["client"])
 		}
 	}
 	runs {
@@ -69,6 +54,19 @@ loom {
 			runDir("build/datagen")
 		}
 	}
+}
+
+dependencies {
+	minecraft("com.mojang:minecraft:${Versions.MINECRAFT}")
+	mappings(loom.layered {
+		officialMojangMappings()
+		parchment("org.parchmentmc.data:parchment-${Versions.PARCHMENT_MINECRAFT}:${Versions.PARCHMENT}")
+	})
+
+	modImplementation("net.fabricmc:fabric-loader:${Versions.FABRIC_LOADER}")
+	modImplementation("net.fabricmc.fabric-api:fabric-api:${Versions.FABRIC_API}")
+	modLocalRuntime("net.fabricmc.fabric-api:fabric-api:${Versions.FABRIC_API}")
+	modLocalRuntime("com.terraformersmc:modmenu:${Versions.MOD_MENU}")
 }
 
 tasks {

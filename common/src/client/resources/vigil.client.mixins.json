@@ -1,13 +1,12 @@
 {
 	"required": true,
 	"minVersion": "0.8",
-	"package": "gay.sylv.vigil.mixin",
+	"package": "gay.sylv.vigil.client.mixin",
 	"refmap": "${mod_id}.refmap.json",
 	"compatibilityLevel": "JAVA_21",
-	"mixins": [
-		"Mixin_Player"
+	"client": [
+		"Mixin_Gui"
 	],
-	"server": [],
 	"injectors": {
 		"defaultRequire": 1
 	}
