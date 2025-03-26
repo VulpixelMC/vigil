@@ -20,11 +20,17 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "house.greenhouse.examplemod.ExampleModFabric"
+	    "gay.sylv.vigil.VigilFabric"
     ],
     "preLaunch": [
-      "house.greenhouse.examplemod.ExampleModFabricPre"
-    ]
+	    "gay.sylv.vigil.VigilFabricPre"
+    ],
+	  "client": [
+		  "gay.sylv.vigil.client.VigilClientFabric"
+	  ],
+	  "server": [
+		  "gay.sylv.vigil.server.dedicated.VigilDedicatedFabric"
+	  ]
   },
   "mixins": [
     "${mod_id}.mixins.json",

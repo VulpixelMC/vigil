@@ -1,6 +1,5 @@
-import house.greenhouse.examplemod.gradle.Properties
-import house.greenhouse.examplemod.gradle.Versions
-import net.fabricmc.loom.task.RemapJarTask
+import gay.sylv.vigil.gradle.Properties
+import gay.sylv.vigil.gradle.Versions
 import org.gradle.jvm.tasks.Jar
 
 plugins {
@@ -32,10 +31,12 @@ loom {
     mixin {
         defaultRefmapName.set("${Properties.MOD_ID}.refmap.json")
     }
+	splitEnvironmentSourceSets()
     mods {
         register(Properties.MOD_ID) {
             sourceSet(sourceSets["main"])
             sourceSet(sourceSets["test"])
+			sourceSet(sourceSets["client"])
         }
     }
     runs {

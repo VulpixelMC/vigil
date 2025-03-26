@@ -1,5 +1,5 @@
-import house.greenhouse.examplemod.gradle.Properties
-import house.greenhouse.examplemod.gradle.Versions
+import gay.sylv.vigil.gradle.Properties
+import gay.sylv.vigil.gradle.Versions
 
 plugins {
     base
@@ -129,8 +129,8 @@ publishing {
     }
     repositories {
         maven {
-            name = "Greenhouse"
-            url = uri("https://maven.greenhouseteam.dev/releases")
+            name = "MuonMC"
+            url = uri("https://maven.muonmc.org/releases")
             credentials {
                 username = System.getenv("MAVEN_USERNAME")
                 password = System.getenv("MAVEN_PASSWORD")

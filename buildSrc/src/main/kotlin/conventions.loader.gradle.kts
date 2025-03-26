@@ -1,4 +1,4 @@
-import house.greenhouse.examplemod.gradle.Properties
+import gay.sylv.vigil.gradle.Properties
 
 plugins {
     id("conventions.common")
