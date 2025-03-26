@@ -3,8 +3,9 @@ import gay.sylv.vigil.gradle.Versions
 
 plugins {
     id("conventions.common")
-    id("net.neoforged.moddev")
+    id("fabric-loom")
     id("me.modmuss50.mod-publish-plugin")
+	id("com.jraska.module.graph.assertion") version "2.8.0"
 }
 
 sourceSets {
@@ -15,35 +16,44 @@ sourceSets {
     }
 }
 
-neoForge {
-    neoFormVersion = Versions.NEOFORM
-    parchment {
-        minecraftVersion = Versions.PARCHMENT_MINECRAFT
-        mappingsVersion = Versions.PARCHMENT
-    }
-    addModdingDependenciesTo(sourceSets["test"])
-
-    val at = file("src/main/resources/${Properties.MOD_ID}.cfg")
-    if (at.exists())
-        setAccessTransformers(at)
-    validateAccessTransformers = true
+loom {
+	val aw = file("src/main/resources/${Properties.MOD_ID}.accesswidener");
+	if (aw.exists())
+		accessWidenerPath.set(aw)
+	mixin {
+		defaultRefmapName.set("${Properties.MOD_ID}.refmap.json")
+	}
+	splitEnvironmentSourceSets()
+	mods {
+		register(Properties.MOD_ID + "-common") {
+			sourceSet(sourceSets["main"])
+			sourceSet(sourceSets["test"])
+			sourceSet(sourceSets["client"])
+		}
+	}
 }
 
 dependencies {
+	minecraft("com.mojang:minecraft:${Versions.MINECRAFT}")
+	mappings(loom.layered {
+		officialMojangMappings()
+		parchment("org.parchmentmc.data:parchment-${Versions.PARCHMENT_MINECRAFT}:${Versions.PARCHMENT}")
+	})
+
     compileOnly("io.github.llamalad7:mixinextras-common:${Versions.MIXIN_EXTRAS}")
     annotationProcessor("io.github.llamalad7:mixinextras-common:${Versions.MIXIN_EXTRAS}")
     compileOnly("net.fabricmc:sponge-mixin:${Versions.FABRIC_MIXIN}")
 }
 
 configurations {
-    register("commonJava") {
-        isCanBeResolved = false
-        isCanBeConsumed = true
-    }
-    register("commonResources") {
-        isCanBeResolved = false
-        isCanBeConsumed = true
-    }
+	register("commonJava") {
+		isCanBeResolved = false
+		isCanBeConsumed = true
+	}
+	register("commonResources") {
+		isCanBeResolved = false
+		isCanBeConsumed = true
+	}
     register("commonTestResources") {
         isCanBeResolved = false
         isCanBeConsumed = true
@@ -52,7 +62,9 @@ configurations {
 
 artifacts {
     add("commonJava", sourceSets["main"].java.sourceDirectories.singleFile)
+	add("commonJava", sourceSets["client"].java.sourceDirectories.singleFile)
     add("commonResources", sourceSets["main"].resources.sourceDirectories.singleFile)
+	add("commonResources", sourceSets["client"].resources.sourceDirectories.singleFile)
     add("commonResources", sourceSets["generated"].resources.sourceDirectories.singleFile)
     add("commonTestResources", sourceSets["test"].resources.sourceDirectories.singleFile)
 }
