@@ -48,8 +48,6 @@ tasks {
     named<Javadoc>("javadoc").configure {
         dependsOn(configurations.getByName("commonJava"))
         source(configurations.getByName("commonJava"))
-		dependsOn(configurations.getByName("commonClientJava"))
-		source(configurations.getByName("commonClientJava"))
     }
     named<Jar>("sourcesJar").configure {
         dependsOn(configurations.getByName("commonJava"))
