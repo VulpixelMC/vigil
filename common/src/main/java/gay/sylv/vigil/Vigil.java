@@ -15,6 +15,7 @@ public class Vigil {
 
     public static void init() {
 		LOG.info("Initializing Vigil");
+		sideHelper = VigilSideHelper.load();
     }
 
 	public static Logger getLogger(String ...subsystems) {
@@ -30,10 +31,6 @@ public class Vigil {
     }
 
 	public static VigilSideHelper<?> getSideHelper() {
-		if (sideHelper == null) {
-			sideHelper = VigilSideHelper.load();
-		}
-
 		return sideHelper;
 	}
 }
