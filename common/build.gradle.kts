@@ -5,7 +5,6 @@ plugins {
     id("conventions.common")
     id("fabric-loom")
     id("me.modmuss50.mod-publish-plugin")
-	id("com.jraska.module.graph.assertion") version "2.8.0"
 }
 
 sourceSets {
