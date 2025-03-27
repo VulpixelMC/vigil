@@ -4,7 +4,7 @@ import org.apache.tools.ant.filters.LineContains
 import org.gradle.jvm.tasks.Jar
 
 plugins {
-    id("conventions.loader")
+    id("conventions.unsplit.loader")
     id("net.neoforged.moddev")
     id("me.modmuss50.mod-publish-plugin")
 }
@@ -51,6 +51,18 @@ neoForge {
             sourceSet(sourceSets["test"])
         }
     }
+}
+
+sourceSets {
+	getByName("main") {
+		compileClasspath += project(":common").sourceSets["main"].output
+		runtimeClasspath += project(":common").sourceSets["main"].output
+		compileClasspath += project(":common").sourceSets["client"].output
+		runtimeClasspath += project(":common").sourceSets["client"].output
+	}
+	getByName("test") {
+		runtimeClasspath += sourceSets["main"].runtimeClasspath
+	}
 }
 
 tasks {
