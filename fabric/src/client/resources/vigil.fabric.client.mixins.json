@@ -4,9 +4,7 @@
 	"package": "gay.sylv.vigil.client.mixin",
 	"refmap": "client-${mod_id}.refmap.json",
 	"compatibilityLevel": "JAVA_21",
-	"client": [
-		"Mixin_Gui"
-	],
+	"client": [],
 	"injectors": {
 		"defaultRequire": 1
 	}
