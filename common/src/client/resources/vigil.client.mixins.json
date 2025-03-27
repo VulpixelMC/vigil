@@ -2,7 +2,7 @@
 	"required": true,
 	"minVersion": "0.8",
 	"package": "gay.sylv.vigil.client.mixin",
-	"refmap": "${mod_id}.refmap.json",
+	"refmap": "${mod_id}.client.refmap.json",
 	"compatibilityLevel": "JAVA_21",
 	"client": [
 		"Mixin_Gui"

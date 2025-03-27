@@ -17,7 +17,7 @@ sourceSets {
 }
 
 loom {
-	val aw = file("src/main/resources/${Properties.MOD_ID}.accesswidener");
+	val aw = file("src/main/resources/${Properties.MOD_ID}.accesswidener")
 	if (aw.exists())
 		accessWidenerPath.set(aw)
 	mixin {
@@ -50,7 +50,15 @@ configurations {
 		isCanBeResolved = false
 		isCanBeConsumed = true
 	}
+	register("commonClientJava") {
+		isCanBeResolved = false
+		isCanBeConsumed = true
+	}
 	register("commonResources") {
+		isCanBeResolved = false
+		isCanBeConsumed = true
+	}
+	register("commonClientResources") {
 		isCanBeResolved = false
 		isCanBeConsumed = true
 	}
@@ -62,9 +70,9 @@ configurations {
 
 artifacts {
     add("commonJava", sourceSets["main"].java.sourceDirectories.singleFile)
-	add("commonJava", sourceSets["client"].java.sourceDirectories.singleFile)
+	add("commonClientJava", sourceSets["client"].java.sourceDirectories.singleFile)
     add("commonResources", sourceSets["main"].resources.sourceDirectories.singleFile)
-	add("commonResources", sourceSets["client"].resources.sourceDirectories.singleFile)
+	add("commonClientResources", sourceSets["client"].resources.sourceDirectories.singleFile)
     add("commonResources", sourceSets["generated"].resources.sourceDirectories.singleFile)
     add("commonTestResources", sourceSets["test"].resources.sourceDirectories.singleFile)
 }

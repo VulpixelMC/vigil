@@ -16,16 +16,18 @@ repositories {
 }
 
 loom {
-	val aw = file("src/main/resources/${Properties.MOD_ID}.accesswidener");
+	val aw = file("src/main/resources/${Properties.MOD_ID}.accesswidener")
 	if (aw.exists())
 		accessWidenerPath.set(aw)
 	mixin {
 		defaultRefmapName.set("${Properties.MOD_ID}.refmap.json")
 	}
+	splitEnvironmentSourceSets()
 	mods {
 		register(Properties.MOD_ID) {
 			sourceSet(sourceSets["main"])
 			sourceSet(sourceSets["test"])
+			sourceSet(sourceSets["client"])
 		}
 	}
 	runs {
@@ -56,6 +58,23 @@ loom {
 	}
 }
 
+sourceSets {
+	getByName("main") {
+		compileClasspath += project(":common").sourceSets["main"].output
+		runtimeClasspath += project(":common").sourceSets["main"].output
+	}
+	getByName("client") {
+		compileClasspath += sourceSets["main"].compileClasspath
+		runtimeClasspath += sourceSets["main"].runtimeClasspath
+		compileClasspath += project(":common").sourceSets["client"].output
+	}
+	getByName("test") {
+		runtimeClasspath += sourceSets["main"].runtimeClasspath
+		runtimeClasspath += sourceSets["client"].output
+		runtimeClasspath += project(":common").sourceSets["client"].output
+	}
+}
+
 dependencies {
 	minecraft("com.mojang:minecraft:${Versions.MINECRAFT}")
 	mappings(loom.layered {
@@ -72,6 +91,15 @@ dependencies {
 tasks {
 	named<ProcessResources>("processResources").configure {
 		exclude("${Properties.MOD_ID}.cfg")
+	}
+	named<JavaCompile>("compileClientJava").configure {
+		dependsOn(configurations.getByName("commonClientJava"))
+		source(configurations.getByName("commonClientJava"))
+	}
+	named<ProcessResources>("processClientResources").configure {
+		dependsOn(configurations.getByName("commonClientResources"))
+		from(configurations.getByName("commonClientResources"))
+		from(configurations.getByName("commonClientResources"))
 	}
 }
 
