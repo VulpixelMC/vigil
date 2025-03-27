@@ -1,14 +1,14 @@
 package gay.sylv.vigil.mixin;
 
+import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import net.minecraft.world.entity.player.Player;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(Player.class)
 public class Mixin_Player {
-	@Redirect(
+	@WrapWithCondition(
 			method = "tick",
 			at = @At(
 					value = "FIELD",
@@ -16,6 +16,7 @@ public class Mixin_Player {
 					opcode = Opcodes.PUTFIELD
 			)
 	)
-	private void cancelSleepCounter(Player instance, int newValue) {
+	private boolean cancelSleepCounter(Player instance, int newValue) {
+		return false;
 	}
 }
