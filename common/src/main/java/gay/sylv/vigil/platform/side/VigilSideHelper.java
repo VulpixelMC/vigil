@@ -12,7 +12,7 @@ public interface VigilSideHelper<S extends VigilSideHelper<S>> extends ServiceLo
 		var loaders = ServiceLoader.load(VigilSideHelper.class);
 		// Maintain sanity
 		if (loaders.stream().findAny().isEmpty()) {
-			throw new IllegalStateException("No VigilSideHelper implementation found");
+			throw new IllegalStateException("No " + VigilSideHelper.class.getName() + " implementation found");
 		}
 
 		return loaders
@@ -20,8 +20,8 @@ public interface VigilSideHelper<S extends VigilSideHelper<S>> extends ServiceLo
 				.filter(provider -> {
 					final String pkg = provider.type().getPackage().getName();
 					return switch (Vigil.getHelper().getSide()) {
-						case CLIENT -> pkg.startsWith("gay.sylv.vigil.client");
-						case DEDICATED -> pkg.startsWith("gay.sylv.vigil.server.dedicated");
+						case CLIENT -> pkg.startsWith(Vigil.CLIENT_PACKAGE);
+						case DEDICATED -> pkg.startsWith(Vigil.DEDICATED_PACKAGE);
 					};
 				})
 				.findFirst()

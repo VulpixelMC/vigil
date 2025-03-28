@@ -9,12 +9,14 @@ public class Vigil {
     public static final String MOD_ID = "vigil";
     public static final String MOD_NAME = "Vigil";
     public static final Logger LOG = LoggerFactory.getLogger(MOD_NAME);
+	public static final String CLIENT_PACKAGE = "gay.sylv.vigil.client";
+	public static final String DEDICATED_PACKAGE = "gay.sylv.vigil.server.dedicated";
 
     private static VigilPlatformHelper helper;
 	private static VigilSideHelper<?> sideHelper;
 
     public static void init() {
-		LOG.info("Initializing Vigil");
+		LOG.info("Initializing {}", MOD_NAME);
 		sideHelper = VigilSideHelper.load();
     }
 
