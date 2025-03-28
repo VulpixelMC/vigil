@@ -2,6 +2,8 @@ package gay.sylv.vigil;
 
 import gay.sylv.vigil.platform.VigilPlatformHelper;
 import gay.sylv.vigil.platform.side.VigilSideHelper;
+import gay.sylv.vigil.stats.VigilStats;
+import net.minecraft.resources.ResourceLocation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,6 +20,8 @@ public class Vigil {
     public static void init() {
 		LOG.info("Initializing {}", MOD_NAME);
 		sideHelper = VigilSideHelper.load();
+
+		VigilStats.init();
     }
 
 	public static Logger getLogger(String ...subsystems) {
@@ -34,5 +38,9 @@ public class Vigil {
 
 	public static VigilSideHelper<?> getSideHelper() {
 		return sideHelper;
+	}
+
+	public static ResourceLocation modId(String key) {
+		return ResourceLocation.fromNamespaceAndPath(MOD_ID, key);
 	}
 }
